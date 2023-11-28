@@ -78,7 +78,7 @@ export default function App() {
           <Button addClass="delete" onClick={handleDeleteMode}>
             {deleteMode
               ? "Fermer le mode édition de la liste"
-              : "Supprimer des amis"}
+              : "Activer le mode édition"}
           </Button>
         )}
         <div className="sidebar">
@@ -99,7 +99,7 @@ export default function App() {
             />
           )}
           <Button onClick={handleShowAddFriend} addClass="bg-green">
-            {showAddFriend ? "Fermer [x]" : "Ajouter une personne"}
+            {showAddFriend ? "Fermer [x]" : "Ajouter un ami"}
           </Button>
         </div>
         {selectedFriend && (
@@ -181,7 +181,7 @@ function Friend({
       }
       <div>
         <Button onClick={() => onSelection(friend)}>
-          {isSelected ? "Fermer [x] " : "Choisir"}
+          {isSelected ? "Fermer [x] " : "Partager"}
         </Button>
         {deleteMode && (
           <Button
@@ -216,7 +216,7 @@ function FormAddFriend({ onSetFriends, friendsList, onSetShowAddFriend }) {
 
   return (
     <form className="form-add-friend">
-      <label>😎Nom de la personne</label>
+      <label>😎Prénom</label>
       <input
         type="text"
         value={name}
