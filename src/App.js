@@ -242,6 +242,10 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
   const paidByFriend = bill ? bill - paidByUser : "";
   const [whoIsPaying, setWhoIsPaying] = useState("user");
 
+  function isNumber(value) {
+    return !isNaN(value) && !isNaN(parseFloat(value));
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -257,16 +261,19 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
 
       <label>🧾Montant de la note</label>
       <input
-        type="text"
+        type="number"
         value={bill}
-        onChange={(e) => setBill(Number(e.target.value))}
+        onChange={(e) =>
+          isNumber(Number(e.target.value)) && setBill(Number(e.target.value))
+        }
       ></input>
 
       <label>💰 Ma part</label>
       <input
-        type="text"
+        type="number"
         value={paidByUser}
         onChange={(e) =>
+          isNumber(Number(e.target.value)) &&
           setPaidByUSer(
             Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
           )
