@@ -5,7 +5,7 @@ const initialFriends = [
     id: 118836,
     name: "Jacques",
     image: "https://i.imgur.com/w8lWXWi.jpg",
-    balance: -666,
+    balance: -35,
   },
   {
     id: 933372,
@@ -24,7 +24,7 @@ const initialFriends = [
     id: 46599235,
     name: "Risitas",
     image: "https://i.imgur.com/jksJY9n.jpg",
-    balance: 88,
+    balance: 12,
   },
 ];
 
@@ -168,12 +168,12 @@ function Friend({
       <h3>{friend.name}</h3>
       {friend.balance < 0 && (
         <p className="red">
-          Je dois à {friend.name} {Math.abs(friend.balance)}€
+          Je dois à {friend.name} <strong>{Math.abs(friend.balance)}€</strong>
         </p>
       )}
       {friend.balance > 0 && (
         <p className="green">
-          {friend.name} me doit {Math.abs(friend.balance)}€
+          {friend.name} me doit <strong>{Math.abs(friend.balance)}€</strong>
         </p>
       )}
       {friend.balance === 0 && <p>Tout roule 👍</p>}
