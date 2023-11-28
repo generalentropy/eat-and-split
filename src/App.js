@@ -155,8 +155,9 @@ function Friend({
   function handleDeleteFriend(friend) {
     const friends = friendsList;
     const updatedFriendList = friends.filter((f) => f.id !== friend.id);
+    const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ?");
 
-    setFriendsList(updatedFriendList);
+    if (confirmed) setFriendsList(updatedFriendList);
 
     console.log(updatedFriendList.length === 0);
     if (updatedFriendList.length === 0) onDeleteMode(false);
