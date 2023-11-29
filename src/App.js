@@ -41,8 +41,10 @@ export default function App() {
   const [friendsList, setFriendsList] = useState(initialFriends);
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [deleteMode, setDeleteMode] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(true);
 
   function handleSelection(friend) {
+    setIsFormOpen(true);
     console.log(friend);
     setSelectedFriend((current) => (current?.id === friend.id ? null : friend));
     setShowAddFriend(false);
@@ -89,6 +91,7 @@ export default function App() {
             selectedFriend={selectedFriend}
             deleteMode={deleteMode}
             onDeleteMode={handleDeleteMode}
+            onIsFormOpen={setIsFormOpen}
           />
 
           {showAddFriend && (
@@ -102,8 +105,9 @@ export default function App() {
             {showAddFriend ? "Fermer [x]" : "Ajouter un ami"}
           </Button>
         </div>
-        {selectedFriend && (
+        {selectedFriend && isFormOpen && (
           <FormSplitBill
+            isFormOpen={isFormOpen}
             selectedFriend={selectedFriend}
             onSplitBill={handleSplitBill}
           />
@@ -120,6 +124,7 @@ function FriendsList({
   selectedFriend,
   deleteMode,
   onDeleteMode,
+  onIsFormOpen,
 }) {
   const renderFriends = friendsList;
 
@@ -135,6 +140,7 @@ function FriendsList({
           selectedFriend={selectedFriend}
           deleteMode={deleteMode}
           onDeleteMode={onDeleteMode}
+          onIsFormOpen={onIsFormOpen}
         />
       ))}
     </ul>
@@ -149,6 +155,7 @@ function Friend({
   friendsList,
   onDeleteMode,
   setFriendsList,
+  onIsFormOpen,
 }) {
   const isSelected = friend.id === selectedFriend?.id;
 
@@ -158,8 +165,10 @@ function Friend({
     const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ?");
 
     if (confirmed) setFriendsList(updatedFriendList);
+    onIsFormOpen(false);
 
     console.log(updatedFriendList.length === 0);
+
     if (updatedFriendList.length === 0) onDeleteMode(false);
   }
   return (
@@ -168,7 +177,7 @@ function Friend({
       <h3>{friend.name}</h3>
       {friend.balance < 0 && (
         <p className="red">
-          Je dois à {friend.name} <strong>{Math.abs(friend.balance)}€</strong>
+          Je dois <strong>{Math.abs(friend.balance)}€</strong> à {friend.name}
         </p>
       )}
       {friend.balance > 0 && (
